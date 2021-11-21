@@ -2,7 +2,9 @@
 
 body {
     background: #5C5C5C;
+    height: 100%;
 }
+
 .navbar{
     padding-left: 116px;
     background: #000;
@@ -16,16 +18,23 @@ body {
     
 }
 .nvButton{
-
+  cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     font-size: 36px;
     border: none;
     background: #000;
     color: #fff;
-    min-height: 45px;
+    min-height: 55px;
     min-width:160px;
-    margin-top: 27px;
+    margin-top: 20px;
+    border-radius:10px;
     
+    
+}
+.nvButton:hover{
+  background-color: white;
+    color :black;
+    transition: all 0.5s ease-in-out;
 }
 .banner{
     
@@ -98,5 +107,35 @@ input[type=submit] {
     cursor: pointer;
   }
   #roleSelect{
+    margin-top: -40px;
+    
+    
+    align-items: center;
+    text-align: center;
+    
+    position: relative;
+      display: flex;
+      flex-direction: row;
       
+  }
+  #roleSelect>button{
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    height: 576px;
+    border: none;
+    cursor: pointer;
+    margin: 0 auto;
+    background-color: #202020;
+    width: 40%;
+    position: relative;
+    border-radius:32px;
+    font-size: 46px;;
+    
+    
+  }
+  #roleSelect>button:hover{
+    
+    background-color: white;
+    color :black;
+    transition: all 0.5s ease-in-out;
   }
