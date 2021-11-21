@@ -6,6 +6,7 @@ body {
 }
 
 .navbar{
+  
     padding-left: 116px;
     background: #000;
     height: 99px;
@@ -14,22 +15,29 @@ body {
     position: fixed;
     margin-left: -10px;
     margin-top: 0px;
+   display: flex;
+  
+   align-items:center;
+   
    
     
 }
 .nvButton{
+  
   cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     font-size: 36px;
     border: none;
     background: #000;
     color: #fff;
-    min-height: 55px;
+    max-height: 55px;
     min-width:160px;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     border-radius:10px;
-    
-    
+
+}
+#role{
+ margin-left: 55%;
 }
 .nvButton:hover{
   background-color: white;
