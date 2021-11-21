@@ -1,0 +1,99 @@
+
+
+body {
+    background: #5C5C5C;
+}
+.navbar{
+    padding-left: 116px;
+    background: #000;
+    height: 99px;
+    width: 100%;
+    top: 0;
+    position: fixed;
+    margin-left: -10px;
+    margin-top: 0px;
+   
+    
+}
+.nvButton{
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    border: none;
+    background: #000;
+    color: #fff;
+    min-height: 45px;
+    min-width:160px;
+    margin-top: 27px;
+    
+}
+.banner{
+    
+    
+    min-height: 173px;
+    max-width: 689px;
+    border-radius: 80px;
+    background: #202020;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 72px;
+    line-height:173px;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 129px;
+    text-align: center;
+
+}
+
+.form{
+    margin: 0 auto;
+    background: #202020;
+    margin: 0 auto;
+    width: 60%;
+    height:40%;
+    padding:100px;
+    font-size: 26px;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+
+}
+input{
+    margin-left: 10px;
+    background: #5C5C5C;
+    border:none;
+}
+input[type=submit]:hover {
+    background-color: #fff;
+    color: #000;
+  }
+  input[type=text], select {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border-radius: 4px;
+    border:none;
+    
+  } 
+  input[type=password], select {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border-radius: 4px;
+    border:none;
+    
+  }   
+input[type=submit] {
+    width: 100%;
+    margin: 8px 0;
+    background-color: #404040;
+    color: white;
+    padding: 12px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size:36px;
+    border-radius: 26px;
+    cursor: pointer;
+  }
