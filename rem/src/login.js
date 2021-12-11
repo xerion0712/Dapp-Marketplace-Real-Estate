@@ -36,12 +36,17 @@ function _login() {
       }
   
     };
-    // const signout = () =>{
+    const signout = () =>{
+      auth.signOut();
+    }
     auth.onAuthStateChanged((user) => {
         if(user){
           navigate("/roleselect");
+          console.log("found")
         }
-        
+        else{
+          console.log("Err login")
+        }
       });
 
   return (
@@ -71,6 +76,7 @@ function _login() {
         />
         <input type="submit" value="Login" onClick={login} />
         <input type="submit" value="Register" onClick={register} />
+        <input type="submit" value="SignOut" onClick={signout} />
       </div>
     </div> 
     
