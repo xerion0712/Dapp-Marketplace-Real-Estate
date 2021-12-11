@@ -4,8 +4,16 @@ import _roleSel from "./roleSelect";
 import _login from "./login";
 import _sellerDashboard from "./sellerPage";
 import _buyerDashboard from "./buyerPage";
+import {auth} from "./firebase-config";
 function App() {
-
+auth.onAuthStateChanged((user) =>{
+  if(user){
+    console.log(user,"APP.JS")
+  }
+  else{
+    console.log("Nopes")
+  }
+});
   return (
 
     
