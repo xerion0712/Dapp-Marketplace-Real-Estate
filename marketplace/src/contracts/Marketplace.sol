@@ -1,14 +1,14 @@
 pragma solidity ^0.5.0;
 
 contract Marketplace {
-    uint256 public countListings = 0;
-    mapping(uint256 => Property) public listings;
+    uint public countListings = 0;
+    mapping(uint => Property) public listings;
     struct Property {
-        uint256 id;
+        uint id;
         address payable currOwner;
         address rentedBy;
-        uint256 priceForRent;
-        uint256 priceForSale;
+        uint priceForRent;
+        uint priceForSale;
         string title;
         string description;
         string addrL1;
@@ -17,11 +17,11 @@ contract Marketplace {
         bool forRent;
     }
     event propertyListed(
-        uint256 id,
+        uint id,
         address payable currOwner,
         address rentedBy,
-        uint256 priceForRent,
-        uint256 priceForSale,
+        uint priceForRent,
+        uint priceForSale,
         string title,
         string description,
         string addrL1,
@@ -31,11 +31,11 @@ contract Marketplace {
     );
 
     event propertyPurchased(
-        uint256 id,
+        uint id,
         address payable currOwner,
         address rentedBy,
-        uint256 priceForRent,
-        uint256 priceForSale,
+        uint priceForRent,
+        uint priceForSale,
         string title,
         string description,
         string addrL1,
@@ -44,15 +44,15 @@ contract Marketplace {
         bool forRent
     );
 
-    function createProduct(
+    function createListing(
         string memory _title,
         string memory _description,
         string memory _addrL1,
         string memory _pincode,
         bool _forSale,
         bool _forRent,
-        uint256 _priceForRent,
-        uint256 _priceForSale
+        uint _priceForRent,
+        uint _priceForSale
     ) public {
         countListings++;
         require(bytes(_title).length > 0);
@@ -65,7 +65,7 @@ contract Marketplace {
 
         listings[countListings] = Property(
             countListings,
-            _currOwner,
+            msg.sender,
             address(0),
             _priceForRent,
             _priceForSale,
@@ -78,7 +78,7 @@ contract Marketplace {
         );
         emit propertyListed(
             countListings,
-            _currOwner,
+            msg.sender,
             address(0),
             _priceForRent,
             _priceForSale,
@@ -90,8 +90,12 @@ contract Marketplace {
             _forRent
         );
     }
+    //     function createProduct() public {
+    //     countListings++;
 
-    function purchaceProperty(uint256 _id) public payable {
+    // }
+
+    function purchaceProperty(uint _id) public payable {
         require(listings[_id].forSale == true);
         Property memory _property = listings[_id];
 
