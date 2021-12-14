@@ -1,30 +1,33 @@
 import React from "react";
 import { Component } from "react";
-import "./App.css"
-import {Link} from "react-router-dom";
+import "./App.css";
+import { Link } from "react-router-dom";
 
 class _form extends Component {
-
   render() {
     return (
       <div id="content">
-        
         <form
-        className="formClass"
+          className="formClass"
           onSubmit={(event) => {
             event.preventDefault();
             const title = this.title.value;
             const desc = this.desc.value;
             const addr = this.addr.value;
             const pc = this.pc.value;
-            const rent = window.web3.utils.toWei(this.rent.value.toString(), 'Ether');
-            const sale  = window.web3.utils.toWei(this.sale.value.toString(), 'Ether');
-            this.props.createListing(title,desc,addr,pc,rent,sale);
+            const rent = window.web3.utils.toWei(
+              this.rent.value.toString(),
+              "Ether"
+            );
+            const sale = window.web3.utils.toWei(
+              this.sale.value.toString(),
+              "Ether"
+            );
+            this.props.createListing(title, desc, addr, pc, rent, sale);
           }}
         >
-          
           <div className="form-group mr-lg">
-          <p className="cardHeading" >Add Property</p>
+            <p className="cardHeading">Add Property</p>
             <input
               id="propertyTitle"
               type="text"
@@ -97,15 +100,17 @@ class _form extends Component {
               required
             />
           </div>
-          <div className = "buttons">
-          <button className = "submitButton" type="submit" >
-            Add Property to Blockchain
-          </button>
-          <p></p>
-          <button className = "submitButton" id = "sb"> <Link to={`/listings`}>See Listings</Link></button>
+          <div className="buttons">
+            <button className="submitButton" type="submit">
+              Add Property to Blockchain
+            </button>
+            <p></p>
+            <button className="submitButton" id="sb">
+              {" "}
+              <Link to={`/propListings`}>See Listings</Link>
+            </button>
           </div>
         </form>
-        
       </div>
     );
   }

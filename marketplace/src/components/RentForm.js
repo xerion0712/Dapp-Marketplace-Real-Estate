@@ -1,32 +1,41 @@
 import React from "react";
 import { Component } from "react";
-import "./App.css"
-import {Link} from "react-router-dom";
+import "./App.css";
+import { Link } from "react-router-dom";
 
 class _rform extends Component {
-
   render() {
     return (
       <div id="content">
-        
         <form
-        className="formClass"
+          className="formClass"
           onSubmit={(event) => {
             event.preventDefault();
             const title = this.title.value;
             const desc = this.desc.value;
             const addr = this.addr.value;
             const pc = this.pc.value;
-            const rent = window.web3.utils.toWei(this.rent.value.toString(), 'Ether');
-            const sale  = window.web3.utils.toWei("0", 'Ether');
+            const rent = window.web3.utils.toWei(
+              this.rent.value.toString(),
+              "Ether"
+            );
+            const sale = window.web3.utils.toWei("0", "Ether");
             const bTime = this.bTime.value.toString();
-            this.props.createListing(title,desc,addr,pc,rent,sale,bTime, this.rAdv.value.toString());
+            this.props.createListing(
+              title,
+              desc,
+              addr,
+              pc,
+              rent,
+              sale,
+              bTime,
+              this.rAdv.value.toString()
+            );
             // this.props.rentInit(bTime);
           }}
         >
-          
           <div className="form-group mr-lg">
-          <p className="cardHeading" >Add Property to Rent</p>
+            <p className="cardHeading">Add Property to Rent</p>
             <input
               id="propertyTitle"
               type="text"
@@ -97,7 +106,6 @@ class _rform extends Component {
                 this.bTime = input;
               }}
               default="1"
-              
             />
           </div>
           <div className="form-group mr-lg">
@@ -105,7 +113,7 @@ class _rform extends Component {
               id="rAdv"
               type="text"
               className="form-control"
-              placeholder="Advance Rent to be collected"
+              placeholder="Duration"
               ref={(input) => {
                 this.rAdv = input;
               }}
@@ -114,15 +122,17 @@ class _rform extends Component {
             />
           </div>
 
-          <div className = "buttons">
-          <button className = "submitButton" type="submit" >
-            Add Property to Blockchain
-          </button>
-          <p></p>
-          <button className = "submitButton" id = "sb"> <Link to={`/listings`}>See Listings</Link></button>
+          <div className="buttons">
+            <button className="submitButton" type="submit">
+              Add Property to Blockchain
+            </button>
+            <p></p>
+            <button className="submitButton" id="sb">
+              {" "}
+              <Link to={`/rentListings`}>See Listings</Link>
+            </button>
           </div>
         </form>
-        
       </div>
     );
   }
