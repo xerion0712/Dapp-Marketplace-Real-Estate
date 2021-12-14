@@ -1,0 +1,77 @@
+.cardHeading{
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 10px;
+    font-size:64px;
+    font-weight: bold;
+}
+.cardBody{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+.container{
+    
+    padding: 25px;
+    margin-top: 50px ;
+    font-family: 'Montserrat', sans-serif;
+    min-width: 25vw;
+    min-height: 50vh;
+    display: flex;
+    
+    justify-content: space-between;
+    align-items: center;
+    
+    
+    /* border-style: solid; */
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.219);
+    
+}
+.details{
+    font-family: 'Montserrat', sans-serif;
+}
+.content{
+    font-family: 'Montserrat', sans-serif;
+}
+.Title{
+    font-weight: bold;
+    font-size:48px;
+}
+.Address{
+    font-weight: semi-bold;
+    font-size:32px;
+}
+.Pincode{
+    font-weight: semi-bold;
+    font-size:18px;
+}
+.Description{
+    font-weight: regular;
+    font-size:24px;
+}
+.Price{
+    font-weight: bold;
+    font-size:40px;
+}
+.buyNow{
+    font-weight: Light;
+    font-size:36px;
+    width: 350px;
+    padding: 5px;
+    border:none;
+    color:white;
+    background: black;
+    display: inline-block;
+    margin-top: 45px;
+
+
+}
+.buyNow:hover{
+    
+    color:black;
+    background: greenyellow;
+    
+
+}

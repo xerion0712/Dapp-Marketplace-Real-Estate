@@ -1,11 +1,14 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
-import "./App.css";
+
 import Web3 from "web3";
 import Marketplace from "../abis/Marketplace.json";
 
 import _form from "./Form";
+import _navbar from "./Navbar"
+import _card from "./Card"
+import {BrowserRouter as Router, Routes, Route ,useNavigate} from "react-router-dom";
 
 class App extends Component {
   // const [account, setAccount] = useState("");
@@ -96,22 +99,20 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-          <p
-            className="navbar-brand col-sm-3 col-md-2 mr-0"
-            // rel="noopener noreferrer"
-          >
-            Real Estate Maketplace
-          </p>
-          <p className="navbar-brand col-sm-10">{this.state.account}</p>
-        </nav>
-        <_form
+      
+      <Router>
+        <_navbar account = {this.state.account} />
+      <Routes>
+        <Route path="/" element = {<_form
           listings={this.state.listings}
           createListing={this.createListing}
           purchaceProperty={this.purchaceProperty}
-        />
-      </div>
+        />}/>
+        <Route path="/listings" element = {<_card listings={this.state.listings} purchaceProperty={this.purchaceProperty}/>} />
+  
+      </Routes>
+    </Router>
+
     );
   }
 }

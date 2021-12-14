@@ -1,13 +1,16 @@
 import React from "react";
 import { Component } from "react";
-import web3 from "web3";
+import "./App.css"
+import {Link} from "react-router-dom";
+
 class _form extends Component {
 
   render() {
     return (
       <div id="content">
-        <h1>Add Product</h1>
+        
         <form
+        className="formClass"
           onSubmit={(event) => {
             event.preventDefault();
             const title = this.title.value;
@@ -19,7 +22,9 @@ class _form extends Component {
             this.props.createListing(title,desc,addr,pc,rent,sale);
           }}
         >
+          
           <div className="form-group mr-lg">
+          <p className="cardHeading" >Add Property</p>
             <input
               id="propertyTitle"
               type="text"
@@ -92,56 +97,15 @@ class _form extends Component {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <div className = "buttons">
+          <button className = "submitButton" type="submit" >
             Add Property to Blockchain
           </button>
+          <p></p>
+          <button className = "submitButton" id = "sb"> <Link to={`/listings`}>See Listings</Link></button>
+          </div>
         </form>
-        <p>&nbsp;</p>
-        <h2>Buy Properties</h2>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Title</th>
-              <th scope="col">Description</th>
-              <th scope="col">Address</th>
-              <th scope="col">Pincode</th>
-              <th scope="col">Property Price</th>
-              <th scope="col">Price for rent</th>
-              <th scope="col">Owner</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody id="productList">
-          { this.props.listings.map((property, key) => {
-              return(
-                <tr key={key}>
-                  <th scope="row">{property.id.toString()}</th>
-                  <td>{property.title}</td>
-                  <td>{property.description}</td>
-                  <td>{property.addrL1}</td>
-                  <td>{property.pincode}</td>
-                  <td>{window.web3.utils.fromWei(property.priceForRent.toString(), 'Ether')} Eth</td>
-                  <td>{window.web3.utils.fromWei(property.priceForSale.toString(), 'Ether')} Eth</td>
-                  <td>{property.currOwner}</td>
-                  <td>
-                    { 
-                      <button
-                          name={property.id}
-                          value={property.priceForSale}
-                          onClick={(event) => {
-                            this.props.purchaceProperty(event.target.name, event.target.value)
-                          }}
-                        >
-                          Buy
-                        </button>
-                    }
-                    </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        
       </div>
     );
   }

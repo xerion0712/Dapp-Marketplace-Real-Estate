@@ -1,14 +1,15 @@
 const Marketplace = artifacts.require('./Marketplace.sol')
-
+const Renting = artifacts.require('./Renting_System.sol')
 require('chai')
   .use(require('chai-as-promised'))
   .should()
 
 contract('Marketplace', ([deployer, seller, buyer]) => {
-  let marketplace
+  let marketplace,rent
 
   before(async () => {
     marketplace = await Marketplace.deployed()
+    rent = await Renting.deployed()
   })
 
   describe('deployment', async () => {
@@ -39,5 +40,20 @@ contract('Marketplace', ([deployer, seller, buyer]) => {
 
     })
   })
+  describe('rents', async () => {
+    let result, owner, x;
+    before(async () => {
+        result = await rent.createRentRelation(3,{from: seller} )
+        x = await rent.
+        owner = await rent.owner()
+    })
+  it('adds products correctly', async () => {
+    
+    assert.equal(owner, seller)
+    
+    
+
+  })
+})
 
 })
