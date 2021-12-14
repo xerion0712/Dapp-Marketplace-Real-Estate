@@ -11,6 +11,7 @@ class _card extends Component {
           <div className="cardBody">
               
       {this.props.listings.map((property,key) =>{
+          if(property.priceForSale>0){
           return(
             <div id={key}>
             <div className="container">
@@ -48,6 +49,7 @@ class _card extends Component {
     </div>
         </div>
           )
+                            }
       })}
       </div>
       </div>

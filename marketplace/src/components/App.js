@@ -1,14 +1,22 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { Component } from "react";
-import { useState, useEffect } from "react";
+
 
 import Web3 from "web3";
 import Marketplace from "../abis/Marketplace.json";
-
+import Renting_System from "../abis/Renting_System.json";
 import _form from "./Form";
-import _navbar from "./Navbar"
-import _card from "./Card"
-import {BrowserRouter as Router, Routes, Route ,useNavigate} from "react-router-dom";
+import _rform from "./RentForm";
+import _navbar from "./Navbar";
+import _card from "./Card";
+import _rcard from "./RentListings";
+import _tform from "./tenentForm";
+import _pay_r from "./Payrent";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
 class App extends Component {
   // const [account, setAccount] = useState("");
@@ -24,9 +32,14 @@ class App extends Component {
       countListings: "",
       loading: false,
       contract: "",
+      rent_contract: "",
+      tenant: ""
     };
+    this.setTenant = this.setTenant.bind(this);
     this.createListing = this.createListing.bind(this);
     this.purchaceProperty = this.purchaceProperty.bind(this);
+    this.rentSet = this.rentSet.bind(this);
+    this.payrent = this.payrent.bind(this);
   }
   async componentWillMount() {
     await this.loadWeb3();
@@ -47,44 +60,84 @@ class App extends Component {
 
     this.setState({ account: acc[0] });
     const networkId = await _web3.eth.net.getId();
-    // console.log(networkId);
+    
     const networkData = Marketplace.networks[networkId];
-    if (networkData) {
+    const networkData_Rent = Renting_System.networks[networkId];
+    
+
+    if (networkData && networkData_Rent) {
       const contractM = new _web3.eth.Contract(
         Marketplace.abi,
         networkData.address
       );
 
+      const contractR = new _web3.eth.Contract(
+        Renting_System.abi,
+        networkData_Rent.address
+      );
+
       this.setState({ contract: contractM });
+      this.setState({ rent_contract: contractR });
+      
+
+      const v =  await this.state.rent_contract.methods.getTenant().call()
+      this.setState({tenant: v});
       const countListings = await contractM.methods.countListings().call();
       this.setState({ countListings: countListings });
       for (var i = 1; i <= countListings; i++) {
         const property = await contractM.methods.listings(i).call();
-        console.log(property);
+        
         this.setState({
           listings: this.state.listings.concat(property),
         });
       }
-      console.log(this.state.listings);
+      
     } else {
       window.alert("not deployed");
     }
   }
 
-  createListing(title, desc, addr, pc, rPrice, sPrice) {
+  rentInit(bTime,rent,advance){
+    this.state.rent_contract.methods
+    .initiate(bTime,rent,advance)
+    .send({ from: this.state.account })
+    .once("receipt", (receipt) => {
+      this.state.loading = false;
+    });
+  }
+
+  setTenant(addr){
+    this.state.rent_contract.methods
+    .addTenant(addr)
+    .send({ from: this.state.account })
+    .once("receipt", (receipt) => {
+      this.state.loading = false;
+    });
+  }
+
+  createListing(title, desc, addr, pc, rPrice, sPrice, bTime, advance) {
     let forRent = false;
-    if (rPrice > 0) {
+    let forSale = true;
+    
+    if (rPrice > 0 && bTime>0) {
       forRent = true;
+      this.rentInit(bTime,rPrice, advance)
+    }
+    if (sPrice > 0) {
+      forSale = true;
+
     }
     // sPrice = Number(sPrice);
     // rPrice = Number(rPrice);
-    this.state.contract.methods
-      .createListing(title, desc, addr, pc, true, forRent, rPrice, sPrice)
+     this.state.contract.methods
+      .createListing(title, desc, addr, pc, forSale, forRent, rPrice, sPrice)
       .send({ from: this.state.account })
       .once("receipt", (receipt) => {
         this.state.loading = false;
       });
-    console.log(title, desc, addr, pc, rPrice, sPrice);
+
+      
+    
   }
 
   purchaceProperty(id, price) {
@@ -96,23 +149,65 @@ class App extends Component {
         this.setState({ loading: false });
       });
   }
+  rentSet(id, addr) {
+    this.setState({ loading: true });
+    this.state.contract.methods
+      .rentProperty(id,addr)
+      .send({ from: this.state.account })
+      .once("receipt", (receipt) => {
+        this.setState({ loading: false });
+      });
+  }
+  payrent(months,price){
+    this.state.rent_contract.methods.payRent(months).send({from : this.state.account, value : window.web3.utils.toWei(price.toString(), 'Ether')}).once("receipt", (receipt) => {this.state.loading = true})
+  }
 
   render() {
     return (
-      
       <Router>
-        <_navbar account = {this.state.account} />
-      <Routes>
-        <Route path="/" element = {<_form
-          listings={this.state.listings}
-          createListing={this.createListing}
-          purchaceProperty={this.purchaceProperty}
-        />}/>
-        <Route path="/listings" element = {<_card listings={this.state.listings} purchaceProperty={this.purchaceProperty}/>} />
-  
-      </Routes>
-    </Router>
-
+        <_navbar account={this.state.account} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <_rform
+                listings={this.state.listings}
+                createListing={this.createListing}
+                purchaceProperty={this.purchaceProperty}
+                rentInit = {this.rentInit}
+              />
+            }
+          />
+          <Route
+            path="/listings"
+            element={
+              <_rcard
+                listings={this.state.listings}
+                purchaceProperty={this.purchaceProperty}
+                contract = {this.state.rent_contract}
+                account = {this.state.account}
+                tenant = {this.state.tenant}
+              />
+            }
+          />
+          <Route
+            path="/settenant"
+            element={
+              <_tform
+                setTenant = {this.setTenant}
+              />
+            }
+          />
+          <Route
+            path="/payrent"
+            element={
+              <_pay_r
+                payrent = {this.payrent}
+              />
+            }
+          />
+        </Routes>
+      </Router>
     );
   }
 }

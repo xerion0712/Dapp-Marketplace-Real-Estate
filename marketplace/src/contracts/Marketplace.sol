@@ -59,7 +59,7 @@ contract Marketplace {
         require(bytes(_description).length > 0);
         require(bytes(_addrL1).length > 0);
         require(bytes(_pincode).length > 0);
-        require(_priceForSale > 0);
+        require(_priceForSale >= 0);
 
         address payable _currOwner = msg.sender;
 
@@ -116,5 +116,14 @@ contract Marketplace {
             listings[_id].forSale,
             listings[_id].forRent
         );
+    }
+        function rentProperty(uint _id, address _addr) public payable {
+        require(listings[_id].priceForRent>0);
+        Property memory _property = listings[_id];
+
+      
+        _property.rentedBy = _addr;
+        listings[_id] = _property;
+
     }
 }
