@@ -1,12 +1,10 @@
-# Decentralised Real Estate Marketplce
-
 ## Motivation for the project
 The real estate industry is amongst the top industries in terms of money influx. 
 
 As beneficial as it is, these benefits come at a cost; a lot of real estate agents are involved in frauds and scams. 
 These scams affect a lot of buyers, who lose their hard-earned money which makes this market extremely risky to step in.
 
-**Problems with current (paper/hard copy) contracts:**
+**Problems with current contracts:**
 1. Paper contracts are held securely by third-party companies during a mortgage or after the completion of one because these “paper deeds” define the ownership; which if lost, the property is no longer yours.
 2. Paper contracts can be manipulated and forged which allows fraudsters to sell a piece of land/property to multiple parties.
 3. These contracts often degrade over time resulting in loss of information which ultimately results in losing ownership rights.
