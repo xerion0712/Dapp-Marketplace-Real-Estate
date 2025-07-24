@@ -1,4 +1,4 @@
-## Motivation for the project
+## Summary of this Repo
 The real estate industry is amongst the top industries in terms of money influx. 
 
 As beneficial as it is, these benefits come at a cost; a lot of real estate agents are involved in frauds and scams. 
